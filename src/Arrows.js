@@ -42,7 +42,7 @@ class PrevArrow extends Component {
         height: 0,
         borderBottom: `solid ${size}px transparent`,
         borderTop: `solid ${size}px transparent`,
-        borderRight: `solid ${size}px ${color}`
+        borderRight: `solid ${size + (size * 1.25)}px ${color}`
       })
     };
 
@@ -100,7 +100,7 @@ class NextArrow extends Component {
         height: 0,
         borderBottom: `solid ${size}px transparent`,
         borderTop: `solid ${size}px transparent`,
-        borderLeft: `solid ${size}px ${color}`
+        borderLeft: `solid ${size + (size * 1.25)}px ${color}`
       })
     };
 
