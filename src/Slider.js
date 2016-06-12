@@ -278,7 +278,7 @@ class Slider extends Component {
   }
 
   render() {
-    const { children, vertical, infinite, swipe, draggable } = this.props;
+    const { children, vertical, infinite, swipe, draggable, ...props } = this.props;
     const { transitionSpeed, transitionTimingFn } = this.props;
     const { beforeChange, afterChange } = this.props;
     const [ leftArrow, slides, rightArrow, customComponent ] = children;
@@ -336,8 +336,8 @@ class Slider extends Component {
     }) : null;
 
     return (
-      <div>
-        <div ref="slider" style={{ display: 'flex', alignItems: 'center'}}>
+      <div {...props}>
+        <div ref="slider" style={{ display: 'flex', alignItems: 'center' }}>
           {newLeftArrow}
           {newSlides}
           {newRightArrow}
