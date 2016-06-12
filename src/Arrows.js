@@ -76,6 +76,7 @@ class NextArrow extends Component {
     const {
       activeClassName,
       className,
+      color,
       currentSlide,
       inactiveClassName,
       infinite,
