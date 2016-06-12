@@ -2,10 +2,11 @@ import { default as React, Component, PropTypes } from 'react';
 
 class PrevArrow extends Component {
   static propTypes = {
-    className: PropTypes.string,
-    handleClick: PropTypes.func,
-    currentSlide: PropTypes.number,
     activeClassName: PropTypes.string,
+    className: PropTypes.string,
+    color: PropTypes.string,
+    currentSlide: PropTypes.number,
+    handleClick: PropTypes.func,
     inactiveClassName: PropTypes.string,
     infinite: PropTypes.bool,
     style: PropTypes.object
@@ -13,16 +14,18 @@ class PrevArrow extends Component {
 
   static defaultProps = {
     activeClassName: '',
+    color: '#795548',
     inactiveClassName: ''
   };
 
   render() {
     const {
       activeClassName,
-      inactiveClassName,
-      currentSlide,
-      infinite,
       className,
+      color,
+      currentSlide,
+      inactiveClassName,
+      infinite,
       style,
       ...props
     } = this.props;
@@ -36,7 +39,7 @@ class PrevArrow extends Component {
         height: 0,
         borderBottom: 'solid 30px transparent',
         borderTop: 'solid 30px transparent',
-        borderRight: 'solid 40px #795548'
+        borderRight: `solid 40px ${color}`
       })
     };
 
@@ -53,10 +56,10 @@ class PrevArrow extends Component {
 
 class NextArrow extends Component {
   static propTypes = {
-    className: PropTypes.string,
-    handleClick: PropTypes.func,
-    currentSlide: PropTypes.number,
     activeClassName: PropTypes.string,
+    className: PropTypes.string,
+    currentSlide: PropTypes.number,
+    handleClick: PropTypes.func,
     inactiveClassName: PropTypes.string,
     infinite: PropTypes.bool,
     slideCount: PropTypes.number,
@@ -65,17 +68,18 @@ class NextArrow extends Component {
 
   static defaultProps = {
     activeClassName: '',
+    color: '#795548',
     inactiveClassName: ''
   };
 
   render() {
     const {
+      activeClassName,
+      className,
+      currentSlide,
+      inactiveClassName,
       infinite,
       slideCount,
-      activeClassName,
-      inactiveClassName,
-      currentSlide,
-      className,
       style,
       ...props
     } = this.props;
@@ -89,7 +93,7 @@ class NextArrow extends Component {
         height: 0,
         borderBottom: 'solid 30px transparent',
         borderTop: 'solid 30px transparent',
-        borderLeft: 'solid 40px #795548'
+        borderLeft: `solid 40px ${color}`
       })
     };
 
