@@ -28,6 +28,7 @@ class PrevArrow extends Component {
       currentSlide,
       inactiveClassName,
       infinite,
+      size,
       style,
       ...props
     } = this.props;
@@ -84,6 +85,7 @@ class NextArrow extends Component {
       currentSlide,
       inactiveClassName,
       infinite,
+      size,
       slideCount,
       style,
       ...props
