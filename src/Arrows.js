@@ -9,13 +9,15 @@ class PrevArrow extends Component {
     handleClick: PropTypes.func,
     inactiveClassName: PropTypes.string,
     infinite: PropTypes.bool,
+    size: PropTypes.number,
     style: PropTypes.object
   };
 
   static defaultProps = {
     activeClassName: '',
     color: '#795548',
-    inactiveClassName: ''
+    inactiveClassName: '',
+    size: 30
   };
 
   render() {
@@ -37,9 +39,9 @@ class PrevArrow extends Component {
       ...(adjustedClassName !== '' ? {} : {
         width: 0,
         height: 0,
-        borderBottom: 'solid 30px transparent',
-        borderTop: 'solid 30px transparent',
-        borderRight: `solid 40px ${color}`
+        borderBottom: `solid ${size} transparent`,
+        borderTop: `solid ${size} transparent`,
+        borderRight: `solid ${size} ${color}`
       })
     };
 
@@ -62,6 +64,7 @@ class NextArrow extends Component {
     handleClick: PropTypes.func,
     inactiveClassName: PropTypes.string,
     infinite: PropTypes.bool,
+    size: PropTypes.number,
     slideCount: PropTypes.number,
     style: PropTypes.object
   };
@@ -69,7 +72,8 @@ class NextArrow extends Component {
   static defaultProps = {
     activeClassName: '',
     color: '#795548',
-    inactiveClassName: ''
+    inactiveClassName: '',
+    size: 30
   };
 
   render() {
@@ -92,9 +96,9 @@ class NextArrow extends Component {
       ...(adjustedClassName !== '' ? {} : {
         width: 0,
         height: 0,
-        borderBottom: 'solid 30px transparent',
-        borderTop: 'solid 30px transparent',
-        borderLeft: `solid 40px ${color}`
+        borderBottom: `solid ${size} transparent`,
+        borderTop: `solid ${size} transparent`,
+        borderLeft: `solid ${size} ${color}`
       })
     };
 
