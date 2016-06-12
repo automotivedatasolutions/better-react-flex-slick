@@ -40,9 +40,9 @@ class PrevArrow extends Component {
       ...(adjustedClassName !== '' ? {} : {
         width: 0,
         height: 0,
-        borderBottom: `solid ${size} transparent`,
-        borderTop: `solid ${size} transparent`,
-        borderRight: `solid ${size} ${color}`
+        borderBottom: `solid ${size}px transparent`,
+        borderTop: `solid ${size}px transparent`,
+        borderRight: `solid ${size}px ${color}`
       })
     };
 
@@ -98,9 +98,9 @@ class NextArrow extends Component {
       ...(adjustedClassName !== '' ? {} : {
         width: 0,
         height: 0,
-        borderBottom: `solid ${size} transparent`,
-        borderTop: `solid ${size} transparent`,
-        borderLeft: `solid ${size} ${color}`
+        borderBottom: `solid ${size}px transparent`,
+        borderTop: `solid ${size}px transparent`,
+        borderLeft: `solid ${size}px ${color}`
       })
     };
 
