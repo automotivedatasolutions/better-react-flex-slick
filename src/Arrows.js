@@ -1,118 +1,62 @@
-import { default as React, Component, PropTypes } from 'react';
+import { default as React, PropTypes } from 'react';
 
-class PrevArrow extends Component {
-  static propTypes = {
-    activeClassName: PropTypes.string,
-    className: PropTypes.string,
-    color: PropTypes.string,
-    currentSlide: PropTypes.number,
-    handleClick: PropTypes.func,
-    inactiveClassName: PropTypes.string,
-    infinite: PropTypes.bool,
-    size: PropTypes.number,
-    style: PropTypes.object
-  };
-
-  static defaultProps = {
-    activeClassName: '',
-    color: '#795548',
-    inactiveClassName: '',
-    size: 30
-  };
-
-  render() {
-    const {
-      activeClassName,
-      className,
-      color,
-      currentSlide,
-      inactiveClassName,
-      infinite,
-      size,
-      style,
-      ...props
-    } = this.props;
-
-    const adjustedClassName = currentSlide === 0 && infinite === false ? inactiveClassName : activeClassName;
-
-    const adjustedStyle = {
-      ...style,
-      ...(adjustedClassName !== '' ? {} : {
-        width: 0,
-        height: 0,
-        borderBottom: `solid ${size}px transparent`,
-        borderTop: `solid ${size}px transparent`,
-        borderRight: `solid ${size * 1.25}px ${color}`
-      })
-    };
-
-    return (
-      <div
-        {...props}
-        className={`${adjustedClassName}${className ? ` ${className}` : '' }`}
-        style={adjustedStyle}
-        onClick={::this.props.handleClick}
-      />
-    );
+function isActive(currentSlide, slideCount, infinite, next, prev) {
+  if (next && currentSlide === 0 && infinite === false) {
+    return false;
   }
+  if (prev && (currentSlide + 1) === slideCount && infinite === false) {
+    return false;
+  }
+  return true;
 }
 
-class NextArrow extends Component {
-  static propTypes = {
-    activeClassName: PropTypes.string,
-    className: PropTypes.string,
-    currentSlide: PropTypes.number,
-    handleClick: PropTypes.func,
-    inactiveClassName: PropTypes.string,
-    infinite: PropTypes.bool,
-    size: PropTypes.number,
-    slideCount: PropTypes.number,
-    style: PropTypes.object
+const Arrow = ({ activeClassName, className, color, currentSlide, inactiveClassName, infinite, next, prev, size, slideCount, style, ...props }) => {
+  const adjustedClassName = isActive(currentSlide, slideCount, infinite, next, prev) ? activeClassName : inactiveClassName;
+  const borderTopBottom = `solid ${size}px transparent`;
+  const borderLeftRight = `solid ${size * 1.25}px ${color}`;
+  const adjustedStyle = {
+    ...style,
+    ...(adjustedClassName !== '' ? {} : {
+      width: 0,
+      height: 0,
+      borderBottom: borderTopBottom,
+      borderTop: borderTopBottom,
+      borderRight: next && borderLeftRight,
+      borderLeft: prev && borderLeftRight
+    })
   };
+  return (
+    <div
+      {...props}
+      className={`${adjustedClassName}${className ? ` ${className}` : '' }`}
+      style={adjustedStyle}
+      onClick={::this.props.handleClick}
+    />
+  );
+};
 
-  static defaultProps = {
-    activeClassName: '',
-    color: '#795548',
-    inactiveClassName: '',
-    size: 30
-  };
+Arrow.propTypes = {
+  activeClassName: PropTypes.string,
+  className: PropTypes.string,
+  color: PropTypes.string,
+  currentSlide: PropTypes.number,
+  handleClick: PropTypes.func,
+  inactiveClassName: PropTypes.string,
+  infinite: PropTypes.bool,
+  next: PropTypes.bool,
+  prev: PropTypes.bool,
+  size: PropTypes.number,
+  style: PropTypes.object
+};
 
-  render() {
-    const {
-      activeClassName,
-      className,
-      color,
-      currentSlide,
-      inactiveClassName,
-      infinite,
-      size,
-      slideCount,
-      style,
-      ...props
-    } = this.props;
+Arrow.defaultProps = {
+  activeClassName: '',
+  color: '#795548',
+  inactiveClassName: '',
+  size: 30
+};
 
-    const adjustedClassName = (currentSlide + 1) === slideCount && infinite === false ? inactiveClassName : activeClassName;
-
-    const adjustedStyle = {
-      ...style,
-      ...(adjustedClassName !== '' ? {} : {
-        width: 0,
-        height: 0,
-        borderBottom: `solid ${size}px transparent`,
-        borderTop: `solid ${size}px transparent`,
-        borderLeft: `solid ${size * 1.25}px ${color}`
-      })
-    };
-
-    return (
-      <div
-        {...props}
-        className={`${adjustedClassName}${className ? ` ${className}` : '' }`}
-        style={adjustedStyle}
-        onClick={::this.props.handleClick}
-      />
-    );
-  }
-}
+const PrevArrow = (props) => <Arrow {...props} prev />;
+const NextArrow = (props) => <Arrow {...props} next />;
 
 export { PrevArrow, NextArrow };
