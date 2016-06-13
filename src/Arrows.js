@@ -21,8 +21,8 @@ const Arrow = ({ activeClassName, className, color, currentSlide, handleClick, i
       height: 0,
       borderBottom: borderTopBottom,
       borderTop: borderTopBottom,
-      borderRight: next && borderLeftRight,
-      borderLeft: prev && borderLeftRight
+      borderRight: prev && borderLeftRight,
+      borderLeft: next && borderLeftRight
     })
   };
   return (
