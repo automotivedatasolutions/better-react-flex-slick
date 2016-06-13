@@ -10,7 +10,7 @@ function isActive(currentSlide, slideCount, infinite, next, prev) {
   return true;
 }
 
-const Arrow = ({ activeClassName, className, color, currentSlide, inactiveClassName, infinite, next, prev, size, slideCount, style, ...props }) => {
+const Arrow = ({ activeClassName, className, color, currentSlide, handleClick, inactiveClassName, infinite, next, prev, size, slideCount, style, ...props }) => {
   const adjustedClassName = isActive(currentSlide, slideCount, infinite, next, prev) ? activeClassName : inactiveClassName;
   const borderTopBottom = `solid ${size}px transparent`;
   const borderLeftRight = `solid ${size * 1.25}px ${color}`;
@@ -30,7 +30,7 @@ const Arrow = ({ activeClassName, className, color, currentSlide, inactiveClassN
       {...props}
       className={`${adjustedClassName}${className ? ` ${className}` : '' }`}
       style={adjustedStyle}
-      onClick={::this.props.handleClick}
+      onClick={::handleClick}
     />
   );
 };
