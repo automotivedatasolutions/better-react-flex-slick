@@ -30,7 +30,7 @@ const Arrow = ({ activeClassName, className, color, currentSlide, handleClick, i
       {...props}
       className={`${adjustedClassName}${className ? ` ${className}` : '' }`}
       style={adjustedStyle}
-      onClick={::handleClick}
+      onClick={handleClick}
     />
   );
 };
