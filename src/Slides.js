@@ -149,12 +149,12 @@ class Track extends Component {
       </Page>
     )
 
-    const preSlides = (slideCount === 1 || infinite === false) &&
+    const preSlides = !(slideCount === 1 || infinite === false) &&
       <Page pageStyle={pageStyle} className={pageClass} pre >
         {cloneElement(this.props.children[slideCount - 1], { key: -1 })}
       </Page>
 
-    const postSlides = (slideCount === 1 || infinite === false) &&
+    const postSlides = !(slideCount === 1 || infinite === false) &&
       <Page pageStyle={pageStyle} className={pageClass} post >
         {cloneElement(this.props.children[0], { key: totalCount })}
       </Page>
