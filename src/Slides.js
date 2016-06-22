@@ -1,4 +1,4 @@
-import React, { Component, PropTypes, Children, cloneElement } from 'react';
+import React, { Component, PropTypes, Children, cloneElement } from 'react'
 
 class Page extends Component {
   static propTypes = {
@@ -7,14 +7,14 @@ class Page extends Component {
     pageStyle: PropTypes.any
   }
 
-  render() {
-    const { pageStyle, className } = this.props;
+  render () {
+    const { pageStyle, className } = this.props
 
     return (
       <div className={className} style={pageStyle}>
           {this.props.children}
       </div>
-    );
+    )
   }
 }
 
@@ -40,68 +40,68 @@ class Track extends Component {
     afterChange: PropTypes.func,
     translateXOffset: PropTypes.number,
     translateYOffset: PropTypes.number
-  }
+  };
 
-  constructor(props, context) {
-    super(props, context);
+  constructor (props, context) {
+    super(props, context)
     this.state = {
       previousSlide: undefined
-    };
+    }
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps () {
     // TODO May be move this to Slider
-    const { currentSlide } = this.props;
-    const { previousSlide } = this.state;
+    const { currentSlide } = this.props
+    const { previousSlide } = this.state
     this.setState({
       previousSlide: previousSlide !== currentSlide ? currentSlide : previousSlide
-    });
+    })
   }
 
-  shouldComponentUpdate(nextProps) {
-    const { swipe, draggable } = this.props;
+  shouldComponentUpdate (nextProps) {
+    const { swipe, draggable } = this.props
 
     if (swipe === false && draggable === false) {
-      return this.state.previousSlide !== nextProps.currentSlide;
+      return this.state.previousSlide !== nextProps.currentSlide
     }
 
-    return true;
+    return true
   }
 
-  componentWillUpdate() {
+  componentWillUpdate () {
     if (this.props.beforeChange !== undefined) {
-      this.props.beforeChange(this.state.previousSlide, this.props.currentSlide);
+      this.props.beforeChange(this.state.previousSlide, this.props.currentSlide)
     }
   }
 
-
-  componentDidUpdate() {
+  componentDidUpdate () {
     if (this.props.afterChange !== undefined) {
-      this.props.afterChange(this.state.previousSlide, this.props.currentSlide);
+      this.props.afterChange(this.state.previousSlide, this.props.currentSlide)
     }
   }
 
-  computeTrackStyle() {
+  computeTrackStyle () {
     const { vertical, currentSlide, infinite,
             translateXOffset, translateYOffset,
-            transitionSpeed, transitionTimingFn } = this.props;
-    const slideCount = Children.count(this.props.children);
-    const totalCount = slideCount + (infinite === true ? 2 : 0);
-    const { previousSlide } = this.state;
-    const preSlideCount = infinite === true ? 1 : 0;
+            transitionSpeed, transitionTimingFn } = this.props
+    const slideCount = Children.count(this.props.children)
+    const totalCount = slideCount + (infinite === true ? 2 : 0)
+    const { previousSlide } = this.state
+    const preSlideCount = infinite === true ? 1 : 0
 
-    const trackWidth = vertical ? '100%' : `${100 * totalCount}%`;
-    const trackHeight = vertical ? `${100 * totalCount}%` : '100%';
-    const translate = (100 * (currentSlide + preSlideCount)) / totalCount;
-    const translateX = vertical === false ? translate - translateXOffset : 0;
-    const translateY = vertical === true ? translate - translateYOffset : 0;
-    const trackTransform = `translate3d(${-translateX}%, ${-translateY}%, 0)`;
+    const trackWidth = vertical ? '100%' : `${100 * totalCount}%`
+    const trackHeight = vertical ? `${100 * totalCount}%` : '100%'
+    const translate = (100 * (currentSlide + preSlideCount)) / totalCount
+    const translateX = vertical === false ? translate - translateXOffset : 0
+    const translateY = vertical === true ? translate - translateYOffset : 0
+    const trackTransform = `translate3d(${-translateX}%, ${-translateY}%, 0)`
     const trackTransition =
       infinite === true && ((previousSlide === -1 && (currentSlide === slideCount - 1)) ||
       ((previousSlide === slideCount) && currentSlide === 0)) ||
-      (translateXOffset !== 0 || translateYOffset !== 0) ? '' :
-      `all ${transitionSpeed}ms ${transitionTimingFn}`;
-    const flexDirection = vertical ? 'column' : 'row';
+      (translateXOffset !== 0 || translateYOffset !== 0)
+      ? ''
+      : `all ${transitionSpeed}ms ${transitionTimingFn}`
+    const flexDirection = vertical ? 'column' : 'row'
 
     const trackStyle = {
       width: trackWidth,
@@ -111,53 +111,53 @@ class Track extends Component {
       flexShrink: 0,
       transform: trackTransform,
       transition: trackTransition
-    };
+    }
 
-    return trackStyle;
+    return trackStyle
   }
 
-  computePageStyle() {
-    const { vertical, infinite } = this.props;
+  computePageStyle () {
+    const { vertical, infinite } = this.props
 
-    const slideCount = Children.count(this.props.children);
-    const totalCount = slideCount + (infinite === true ? 2 : 0);
+    const slideCount = Children.count(this.props.children)
+    const totalCount = slideCount + (infinite === true ? 2 : 0)
 
-    const pageWidth = vertical ? '100%' : `${100 / totalCount}%`;
-    const pageHeight = vertical ? `${100 / totalCount}%` : '100%';
+    const pageWidth = vertical ? '100%' : `${100 / totalCount}%`
+    const pageHeight = vertical ? `${100 / totalCount}%` : '100%'
     const pageStyle = {
       width: pageWidth,
       height: pageHeight,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center'
-    };
+    }
 
-    return pageStyle;
+    return pageStyle
   }
 
-  render() {
-    const { pageClass, infinite } = this.props;
-    const slideCount = Children.count(this.props.children);
-    const totalCount = slideCount + (infinite === true ? 2 : 0);
+  render () {
+    const { pageClass, infinite } = this.props
+    const slideCount = Children.count(this.props.children)
+    const totalCount = slideCount + (infinite === true ? 2 : 0)
 
-    const trackStyle = this.computeTrackStyle();
-    const pageStyle = this.computePageStyle();
+    const trackStyle = this.computeTrackStyle()
+    const pageStyle = this.computePageStyle()
 
     const slides = Children.map(this.props.children, (child, i) =>
       <Page pageStyle={pageStyle} className={pageClass} >
         {cloneElement(child, { key: i })}
       </Page>
-    );
+    )
 
-    const preSlides = slideCount === 1 || infinite === false ? null :
+    const preSlides = (slideCount === 1 || infinite === false) &&
       <Page pageStyle={pageStyle} className={pageClass} pre >
         {cloneElement(this.props.children[slideCount - 1], { key: -1 })}
-      </Page>;
+      </Page>
 
-    const postSlides = slideCount === 1 || infinite === false ? null :
+    const postSlides = (slideCount === 1 || infinite === false) &&
       <Page pageStyle={pageStyle} className={pageClass} post >
         {cloneElement(this.props.children[0], { key: totalCount })}
-      </Page>;
+      </Page>
 
     return (
       <div style={trackStyle}>
@@ -165,7 +165,7 @@ class Track extends Component {
         {slides}
         {postSlides}
       </div>
-    );
+    )
   }
 }
 
@@ -194,43 +194,55 @@ class Slides extends Component {
     afterChange: PropTypes.func,
     translateXOffset: PropTypes.number,
     translateYOffset: PropTypes.number
-  }
+  };
 
   static defaultProps = {
     width: 0,
     height: 0
-  }
+  };
 
-  render() {
-    const { width, height, children,
-      onMouseDown, onMouseMove, onMouseUp, onMouseLeave,
-      onTouchStart, onTouchMove, onTouchEnd, onTouchCancel, ...props } = this.props;
+  render () {
+    const {
+      width,
+      height,
+      onMouseDown,
+      onMouseMove,
+      onMouseUp,
+      onMouseLeave,
+      onTouchStart,
+      onTouchMove,
+      onTouchEnd,
+      onTouchCancel,
+      ...props
+    } = this.props
 
-    const containerWidth = width === 0 ? '100%' : width;
-    const containerHeight = height === 0 ? '100%' : height;
+    const containerWidth = width === 0 ? '100%' : width
+    const containerHeight = height === 0 ? '100%' : height
     const containerStyle = {
       width: containerWidth,
       height: containerHeight,
       display: 'flex',
       overflow: 'hidden'
-    };
+    }
 
     return (
-      <div style={containerStyle}
-           onMouseDown={onMouseDown}
-           onMouseMove={onMouseMove}
-           onMouseUp={onMouseUp}
-           onMouseLeave={onMouseLeave}
-           onTouchStart={onTouchStart}
-           onTouchMove={onTouchMove}
-           onTouchEnd={onTouchEnd}
-           onTouchCancel={onTouchCancel} >
-        <Track {...props} >
+      <div
+        style={containerStyle}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseLeave}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        onTouchCancel={onTouchCancel}
+      >
+        <Track {...props}>
           {this.props.children}
         </Track>
       </div>
-    );
+    )
   }
 }
 
-export default Slides;
+export default Slides
