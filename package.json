@@ -1,6 +1,6 @@
 {
   "name": "better-react-flex-slick",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Carousel components for React",
   "main": "./dist/index.js",
   "scripts": {
