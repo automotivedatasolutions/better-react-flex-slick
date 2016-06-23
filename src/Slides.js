@@ -237,9 +237,7 @@ class Slides extends Component {
         onTouchEnd={onTouchEnd}
         onTouchCancel={onTouchCancel}
       >
-        <Track {...props}>
-          {this.props.children}
-        </Track>
+        <Track {...props} />
       </div>
     )
   }

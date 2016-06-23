@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import { default as React, Component, PropTypes } from 'react'
 
 const range = n => [...Array(n)].map((_, i) => i)
 
@@ -6,12 +6,12 @@ class Dots extends Component {
   static propTypes = {
     className: PropTypes.string,
     currentSlide: PropTypes.number,
-    slideCount: PropTypes.number,
-    handleSlideShift: PropTypes.func
+    onClick: PropTypes.func.isRequired,
+    slideCount: PropTypes.number
   }
 
   render () {
-    const { className, slideCount, currentSlide } = this.props
+    const { className, slideCount, currentSlide, onClick } = this.props
     const dotStyle = { display: 'flex', justifyContent: 'center' }
 
     const dots = range(slideCount).map((x, i) => {
@@ -26,7 +26,12 @@ class Dots extends Component {
       }
 
       return (
-        <div className={isActive ? 'active' : ''} style={style} key={i} />
+        <div
+          className={isActive ? 'active' : ''}
+          onClick={() => onClick(i - currentSlide)}
+          style={style}
+          key={i}
+        />
       )
     })
 

@@ -283,10 +283,8 @@ class Slider extends Component {
     const slideCount = Children.count(slides.props.children)
 
     // onClick is passed as a props so that dom elements can be custom arrows
-
     const newLeftArrow = leftArrow !== undefined ? cloneElement(leftArrow, {
       key: 0,
-      handleClick: () => { this.handleSlideShift(-1) },
       onClick: () => { this.handleSlideShift(-1) },
       currentSlide,
       infinite
@@ -295,7 +293,6 @@ class Slider extends Component {
     // Need to pass slideCount to check if end of slide has been reached.
     const newRightArrow = rightArrow !== undefined ? cloneElement(rightArrow, {
       key: 2,
-      handleClick: () => { this.handleSlideShift(1) },
       onClick: () => { this.handleSlideShift(1) },
       currentSlide,
       infinite,
@@ -329,7 +326,7 @@ class Slider extends Component {
     const newCustomComponent = customComponent !== undefined ? cloneElement(customComponent, {
       currentSlide,
       slideCount,
-      handleSlideShift: ::this.handleSlideShift
+      onClick: ::this.handleSlideShift
     }) : null
 
     return (
