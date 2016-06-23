@@ -1,7 +1,7 @@
 {
   "name": "better-react-flex-slick",
-  "version": "0.0.4",
-  "description": "Slick carousel using Flexbox",
+  "version": "0.0.5",
+  "description": "Carousel components for React",
   "main": "./dist/index.js",
   "scripts": {
     "lint": "standard src/**/*.js",
