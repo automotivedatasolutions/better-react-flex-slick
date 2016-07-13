@@ -1,6 +1,6 @@
 {
   "name": "better-react-flex-slick",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Carousel components for React",
   "main": "./dist/index.js",
   "scripts": {
@@ -42,12 +42,14 @@
     "expect": "^1.20.1",
     "jsx-control-statements": "^3.1.2",
     "mocha": "^2.4.5",
+    "prefixed-reflexbox": "^1.1.5",
     "react": "^15.0.2",
     "react-addons-test-utils": "^15.0.2",
     "standard": "^7.0.1"
   },
   "peerDependencies": {
-    "react": ">=0.14 || ^0.14.0-alpha"
+    "react": "*",
+    "react-dom": "*"
   },
   "standard": {
     "globals": [
@@ -67,5 +69,8 @@
       "jsx-control-statements",
       "transform-decorators-legacy"
     ]
+  },
+  "dependencies": {
+    "inline-style-prefixer": "^2.0.1"
   }
 }

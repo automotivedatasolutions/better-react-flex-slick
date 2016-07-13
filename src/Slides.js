@@ -1,4 +1,6 @@
-import React, { Component, PropTypes, Children, cloneElement } from 'react'
+import { default as React, Component, PropTypes, Children, cloneElement } from 'react'
+import { default as Prefixer } from 'inline-style-prefixer'
+const prefixer = new Prefixer()
 
 class Page extends Component {
   static propTypes = {
@@ -58,15 +60,15 @@ class Track extends Component {
     })
   }
 
-  shouldComponentUpdate (nextProps) {
-    const { swipe, draggable } = this.props
+  // shouldComponentUpdate (nextProps) {
+  //   const { swipe, draggable } = this.props
 
-    if (swipe === false && draggable === false) {
-      return this.state.previousSlide !== nextProps.currentSlide
-    }
+  //   if (swipe === false && draggable === false) {
+  //     return this.state.previousSlide !== nextProps.currentSlide
+  //   }
 
-    return true
-  }
+  //   return true
+  // }
 
   componentWillUpdate () {
     if (this.props.beforeChange !== undefined) {
@@ -103,7 +105,7 @@ class Track extends Component {
       : `all ${transitionSpeed}ms ${transitionTimingFn}`
     const flexDirection = vertical ? 'column' : 'row'
 
-    const trackStyle = {
+    let sx = {
       width: trackWidth,
       height: trackHeight,
       display: 'flex',
@@ -113,7 +115,11 @@ class Track extends Component {
       transition: trackTransition
     }
 
-    return trackStyle
+    if (typeof document !== 'undefined') {
+      sx = prefixer.prefix(sx)
+    }
+
+    return sx
   }
 
   computePageStyle () {
@@ -171,7 +177,6 @@ class Track extends Component {
 
 class Slides extends Component {
   static propTypes = {
-    children: PropTypes.any,
     width: PropTypes.number,
     height: PropTypes.number,
     currentSlide: PropTypes.number,
@@ -216,18 +221,20 @@ class Slides extends Component {
       ...props
     } = this.props
 
-    const containerWidth = width === 0 ? '100%' : width
-    const containerHeight = height === 0 ? '100%' : height
-    const containerStyle = {
-      width: containerWidth,
-      height: containerHeight,
+    let sx = {
+      width: width === 0 ? '100%' : width,
+      height: height === 0 ? '100%' : height,
       display: 'flex',
       overflow: 'hidden'
     }
 
+    if (typeof document !== 'undefined') {
+      sx = prefixer.prefix(sx)
+    }
+
     return (
       <div
-        style={containerStyle}
+        style={sx}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
