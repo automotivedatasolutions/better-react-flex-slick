@@ -15,7 +15,6 @@ const Arrow = ({ activeClassName, className, color, currentSlide, inactiveClassN
   const borderTopBottom = `solid ${size}px transparent`
   const borderLeftRight = `solid ${size * 1.25}px ${color}`
   const adjustedStyle = {
-    ...style,
     ...(adjustedClassName !== '' ? {} : {
       width: 0,
       height: 0,
@@ -23,7 +22,8 @@ const Arrow = ({ activeClassName, className, color, currentSlide, inactiveClassN
       borderTop: borderTopBottom,
       borderRight: prev && borderLeftRight,
       borderLeft: next && borderLeftRight
-    })
+    }),
+    ...style
   }
   return (
     <div
