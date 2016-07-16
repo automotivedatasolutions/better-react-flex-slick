@@ -275,14 +275,13 @@ class Slider extends Component {
   }
 
   render () {
-    const { children, vertical, infinite, swipe, draggable, ...props } = this.props
-    const { transitionSpeed, transitionTimingFn } = this.props
-    const { beforeChange, afterChange } = this.props
+    const { beforeChange, afterChange, children,
+      vertical, infinite, swipe, draggable, transitionSpeed,
+      transitionTimingFn, ...props } = this.props
     const [ leftArrow, slides, rightArrow, customComponent ] = children
     const { currentSlide, translateXOffset, translateYOffset } = this.state
     const slideCount = Children.count(slides.props.children)
 
-    // onClick is passed as a props so that dom elements can be custom arrows
     const newLeftArrow = leftArrow !== undefined ? cloneElement(leftArrow, {
       key: 0,
       onClick: () => { this.handleSlideShift(-1) },
@@ -290,7 +289,6 @@ class Slider extends Component {
       infinite
     }) : null
 
-    // Need to pass slideCount to check if end of slide has been reached.
     const newRightArrow = rightArrow !== undefined ? cloneElement(rightArrow, {
       key: 2,
       onClick: () => { this.handleSlideShift(1) },
@@ -299,7 +297,6 @@ class Slider extends Component {
       slideCount
     }) : null
 
-    // TODO Show a warning if transitionSpeed prop is declared on Slides.
     const newSlides = cloneElement(slides, {
       key: 1,
       currentSlide,

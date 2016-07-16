@@ -14,7 +14,7 @@ const Arrow = ({ activeClassName, className, color, currentSlide, inactiveClassN
   const adjustedClassName = isActive(currentSlide, slideCount, infinite, next, prev) ? activeClassName : inactiveClassName
   const borderTopBottom = `solid ${size}px transparent`
   const borderLeftRight = `solid ${size * 1.25}px ${color}`
-  const adjustedStyle = {
+  const sx = {
     ...(adjustedClassName !== '' ? {} : {
       width: 0,
       height: 0,
@@ -29,7 +29,7 @@ const Arrow = ({ activeClassName, className, color, currentSlide, inactiveClassN
     <div
       {...props}
       className={`${adjustedClassName}${className ? ` ${className}` : ''}`}
-      style={adjustedStyle}
+      style={sx}
     />
   )
 }
