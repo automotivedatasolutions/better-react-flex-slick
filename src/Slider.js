@@ -1,5 +1,7 @@
 import React, { Component, PropTypes, cloneElement, Children } from 'react'
 import { SWIPE_UP, SWIPE_DOWN, SWIPE_RIGHT, SWIPE_LEFT, swipeDirection, swipeDistance } from './util.js'
+import { default as Prefixer } from 'inline-style-prefixer'
+const prefixer = new Prefixer()
 
 class Slider extends Component {
   static propTypes = {
@@ -328,7 +330,13 @@ class Slider extends Component {
 
     return (
       <div {...props}>
-        <div ref='slider' style={{ display: 'flex', alignItems: 'center' }}>
+        <div
+          ref='slider'
+          style={prefixer.prefix({
+            display: 'flex',
+            alignItems: 'center'
+          })}
+        >
           {newLeftArrow}
           {newSlides}
           {newRightArrow}
